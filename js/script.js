@@ -1,21 +1,30 @@
-function Button(text) {
-	this.text = text || 'Hello';
+var url = 'http://api.icndb.com/jokes/random';
+
+
+var button = document.getElementById('get-joke');
+button.addEventListener('click', function(){
+  getJoke();
+});
+
+var paragraph = document.getElementById('joke');
+
+
+function getJoke() {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', url);
+  xhr.addEventListener('load', function(){
+    var response = JSON.parse(xhr.response);
+    paragraph.innerHTML = response.value.joke;
+  });
+  xhr.send();
 }
 
-Button.prototype = {
-	create: function() {
-		var self = this;
-		this.element = document.createElement('button');
-		this.element.innerText = this.text;
-		this.element.addEventListener('click', function() {
-			alert(self.text);
-		});
-		document.body.appendChild(this.element);
-	}
+
+
+var tmp;
+function f1() {
+		tmp = setTimeout("callitrept()", 2000);
 }
-
-
-
-var btn1 = new Button('Hello!');
-
-btn1.create();
+function callitrept() {
+  document.getElementById('get-joke').click();
+};
